@@ -153,9 +153,9 @@ Node* SplayTree::searchNodeHelper(Node *node, int value) const {
     if(!node || node->value == value)
         return node;
     else if(node->value > value)
-        searchNodeHelper(node->left, value);
+        return searchNodeHelper(node->left, value);
     else
-        searchNodeHelper(node->right, value);
+        return searchNodeHelper(node->right, value);
 }
 
 Node* SplayTree::searchNode(int value) const{
