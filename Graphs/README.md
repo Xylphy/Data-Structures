@@ -1,4 +1,6 @@
 # Graph ADT
+### Due to costly maintenance, I decided to drop this data structure
+
 
 * _**addEdge** (name, vertex1, vertex2)_: Add edge with its name and its two vertices
 

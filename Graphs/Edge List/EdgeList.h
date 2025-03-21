@@ -1,7 +1,6 @@
-#ifndef DATA_STRUCTURES_EDGELIST_H
-#define DATA_STRUCTURES_EDGELIST_H
+#pragma once
 
-#include <list>
+#include <vector>
 
 #include "../General Graph/GraphAbstract.h"
 
@@ -20,17 +19,24 @@ namespace Graph
 			V vertex1, vertex2;
 		};
 
-		std::list<Edge> *_edges;
+		std::vector<Edge> *_edges;
 
-		std::list<V> *_vertices;
+		std::vector<V> *_vertices;
 
 		GraphAbstract<V, E> &print(std::ostream &ostream) override;
 
 	public:
+		EdgeList() : _edges(new std::list<Edge>), _vertices(new std::list<V>) {}
 
-		EdgeList();
+	auto vertices() const -> std::vector<V> * override
+	{
+		auto *vertices = new std::vector<V>;
 
-		std::vector<V> *vertices() const override;
+		std::transform(_vertices->begin(), _vertices->end(), std::back_inserter(*vertices),
+					   [](const V &vertex) -> V { return vertex; });
+
+		return vertices;
+	}
 
 		std::vector<E> *edges() const override;
 
@@ -71,7 +77,3 @@ namespace Graph
 		~EdgeList() override;
 	};
 } // namespace Graph
-
-#include "EdgeList.cpp"
-
-#endif // DATA_STRUCTURES_EDGELIST_H

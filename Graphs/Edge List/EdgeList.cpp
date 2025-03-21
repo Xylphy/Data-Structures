@@ -1,5 +1,3 @@
-#pragma once
-
 #include "EdgeList.h"
 
 #include <functional>
@@ -7,19 +5,8 @@
 
 namespace Graph
 {
-	template <typename V, typename E>
-	EdgeList<V, E>::EdgeList() : _edges(new std::list<Edge>), _vertices(new std::list<V>) {}
 
 	template <typename V, typename E>
-	std::vector<V> *EdgeList<V, E>::vertices() const
-	{
-		auto *vertices = new std::vector<V>;
-
-		std::transform(_vertices->begin(), _vertices->end(), std::back_inserter(*vertices),
-					   [](const V &vertex) -> V { return vertex; });
-
-		return vertices;
-	}
 
 	template <typename V, typename E>
 	std::vector<E> *EdgeList<V, E>::edges() const
