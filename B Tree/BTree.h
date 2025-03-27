@@ -5,36 +5,36 @@
 #include <ostream>
 #include "BTreeNode.h"
 
-class BTree {
-    size_t size;
+class BTree
+{
+	size_t size;
 
-    BTreeNode* root;
+	BTreeNode *root;
 
-    int capacityElemNode;
+	size_t capacityElemNode;
 
 public:
+	explicit BTree(const size_t &maxChildren);
 
-    explicit BTree(const int & maxChildren);
+	void insert(const int &key);
 
-    void insert(const int & key);
+	void deleteKey(const int &key);
 
-    void deleteKey(const int & key);
+	[[nodiscard]] auto height() const -> size_t;
 
-    [[nodiscard]] size_t height() const;
+	[[nodiscard]] auto height(const int &key) const -> size_t;
 
-    [[nodiscard]] size_t height(const int & key) const;
+	[[nodiscard]] auto depth(const int &key) const -> size_t;
 
-    [[nodiscard]] size_t depth(const int & key) const;
+	[[nodiscard]] auto getGroupNode(const int &key) const -> BTreeNode *;
 
-    [[nodiscard]] BTreeNode *getGroupNode(const int & key) const;
+	~BTree();
 
-    ~BTree();
+	[[nodiscard]] auto search(const int &key) const -> bool;
 
-    [[nodiscard]] bool search(const int & key) const;
-
-    friend std::ostream& operator<<(std::ostream& os, const BTree* tree);
+	friend auto operator<<(std::ostream &ostream, const BTree *tree) -> std::ostream &;
 };
 
-std::ostream& operator<<(std::ostream& os, const BTree* tree);
+auto operator<<(std::ostream &ostream, const BTree *tree) -> std::ostream &;
 
-#endif //DATA_STRUCTURES_BTREE_H
+#endif // DATA_STRUCTURES_BTREE_H

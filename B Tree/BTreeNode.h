@@ -3,67 +3,68 @@
 
 #include <ostream>
 
-class BTreeNode final {
-    int size, capacity;
+class BTreeNode final
+{
+	size_t size, capacity;
 
-    int *elem;
+	int *elem;
 
-    BTreeNode **children, *parent;
+	BTreeNode **children, *parent;
 
-    bool isLeaf;
+	bool isLeaf;
 
-    static void printInorder(std::ostream& os, const BTreeNode* node, int && level);
+	BTreeNode(const size_t &capacity, const bool &isLeaf);
 
-    explicit BTreeNode(const int & capacity, const bool & isLeaf);
+	BTreeNode(const size_t &capacity, BTreeNode *parent, const bool &isLeaf);
 
-    explicit BTreeNode(const int & capacity, BTreeNode* parent, const bool & isLeaf);
+	static void printInorder(std::ostream &ostream, const BTreeNode *node, int &&level);
 
-    [[nodiscard]] BTreeNode* getChild(const int & key) const;
+	[[nodiscard]] auto getChild(const int &key) const -> BTreeNode *;
 
-    void insert(const int & key);
+	void insert(const int &key);
 
-    void insertFromChild(const int & key, BTreeNode * newChild);
+	void insertFromChild(const int &key, BTreeNode *newChild);
 
-    void moveHalf(BTreeNode* node);
+	void moveHalf(BTreeNode *node);
 
-    void splitNode();
+	void splitNode();
 
-    [[nodiscard]] static BTreeNode* getSuccessor(BTreeNode* node);
+	[[nodiscard]] static auto getSuccessor(BTreeNode *node) -> BTreeNode *;
 
-    [[nodiscard]] static BTreeNode* getPredecessor(BTreeNode* node);
+	[[nodiscard]] static auto getPredecessor(BTreeNode *node) -> BTreeNode *;
 
-    bool deleteKey(const int & key);
+	auto deleteKey(const int &key) -> bool;
 
-    [[nodiscard]] bool keyPresent(const int & key) const;
+	[[nodiscard]] auto keyPresent(const int &key) const -> bool;
 
-    /**
-     * this node merges with its sibling
-     * @param sibling
-     */
-    void mergeChild(BTreeNode* node);
+	/**
+	 * this node merges with its sibling
+	 * @param sibling
+	 */
+	void mergeChild(BTreeNode *node);
 
-    void mergeNode(BTreeNode* src, BTreeNode* dest);
+	void mergeNode(BTreeNode *src, BTreeNode *dest);
 
-    static void mergeContents(const BTreeNode * src, BTreeNode * dest, const int & elementIndex);
+	static void mergeContents(const BTreeNode *src, BTreeNode *dest, const size_t &elementIndex);
 
-    /**
-     * @warning Must be used for leaf nodes.
-     */
-    void underFlow();
+	/**
+	 * @warning Must be used for leaf nodes.
+	 */
+	void underFlow();
 
-    [[nodiscard]] bool isFull() const;
+	[[nodiscard]] auto isFull() const -> bool;
 
-    [[nodiscard]] bool isEmpty() const;
+	[[nodiscard]] auto isEmpty() const -> bool;
 
-    int removeElem(const int & index);
+	auto removeElem(const size_t &index) -> int;
 
-    ~BTreeNode();
+	~BTreeNode();
 
-    friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+	friend auto operator<<(std::ostream &ostream, BTreeNode *node) -> std::ostream &;
 
-    friend class BTree;
+	friend class BTree;
 };
 
-std::ostream& operator<<(std::ostream& os, BTreeNode *node);
+auto operator<<(std::ostream &ostream, BTreeNode *node) -> std::ostream &;
 
-#endif //DATA_STRUCTURES_BTREENODE_H
+#endif // DATA_STRUCTURES_BTREENODE_H
